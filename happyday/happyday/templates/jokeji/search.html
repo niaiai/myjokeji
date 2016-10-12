@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="static/css/bootstrap.min.css" rel="stylesheet">
+	<title>Search for Jokeji</title>
+</head>
+<body>
+<div class="container">
+	<form action="" method="GET">
+		<div class="form-group">
+			<label for="date">请输入日期 </label>
+			<input type="text" name="date" id="date" class="form-control">
+			<button type="submit" class="btn btn-default">Submit</button>
+		</div>
+	</form>
+	{% if joke %}
+	<a href="?date={{date}}&offS=-1">前一天</a>
+	<a href="?date={{date}}&offS=1">后一天</a>
+	<p>时间： {{ date }}</p>
+		<div>
+			{% for i in joke %}
+				<p>标题： {{ i.title }}</p>
+				<p> {{ i.joke|linebreaksbr }} </p>
+			{% endfor %}
+		</div>
+
+	<div>
+
+	<a href="?date={{date}}&offS=-1">前一天</a>
+	{% ifnotequal curP 1 %}
+		<a href="?date={{date}}&curP={{curP|add:-1}}&allP={{allP}}">上一页</a>
+	{% endifnotequal %}
+	第{{curP}}/{{allP}}页
+
+	{% ifnotequal curP allP %}
+		<a href="?date={{date}}&curP={{curP|add:1}}&allP={{allP}}">下一页</a>
+	{% endifnotequal %}
+	<a href="?date={{date}}&offS=1">后一天</a>
+	</div>
+	{% else %}
+		<a href="?date={{date}}&offS=-1">前一天</a>
+	{% endif %}
+
+</div>
+</body>
+</html>

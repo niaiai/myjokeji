@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Search for Jokeji</title>
+</head>
+<body>
+	<form action="" method="POST">
+		<input type="text" name="date" id="date">
+		<input type="submit" value="Search">
+	</form>
+	{% if list %}
+	<p>时间： {{ date }}</p>
+		<div>
+			{% for i in list %}
+				<p>标题： {{ i.title }}</p>
+				<p> {{ i.joke|linebreaksbr }} </p>
+			{% endfor %}
+		</div>
+	{% endif %}
+</body>
+</html>

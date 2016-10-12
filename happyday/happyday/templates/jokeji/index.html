@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Jokeji de index</title>
+</head>
+<body>
+	<p>时间： {{ date }}</p>
+	{% if list %}
+		<div>
+			{% for i in list %}
+				<p>标题： {{ i.title }}</p>
+				<p> {{ i.joke|linebreaksbr }} </p>
+			{% endfor %}
+		</div>
+	{% else %}
+		<p>No data</p>
+	{% endif %}
+</body>
+</html>
