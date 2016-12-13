@@ -5,6 +5,6 @@
 *.egg-info
 
 # my configuratuins
-MyDjangoProject/erya/
+MyDjangoProject/erya
 MyDjangoProject/db.sqlite3
 
