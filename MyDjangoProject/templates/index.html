@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>笑话集-笑话网</title>
+{% endblock %}
+
+{% block body %}
+<div>
+<h2>
+    <ul class="list-inline">
+       <li><a href="/jokeji">首 页</a></li>
+       <li><a href="/jokeji/news">最新笑话</a></li>
+       <li><a href="/jokeji/hot">最热笑话</a></li>
+       <li><a href="/jokeji/ycxh">原创笑话</a></li>
+    </ul>
+</h2>
+</div>
+
+<div class="row">
+<div class="hidden-xs col-md-4" >
+     <h3><a href="/jokeji/news">最新笑话</a></h3>
+    {% if l_jokes %}
+    <ul class="list-unstyled">
+        {% for l_joke in l_jokes %}
+        <li><span><a href=/jokeji/page_{{ l_page }}/joke_{{ forloop.counter }}>{{ l_joke.tittle }}</a></span></li>
+        {% endfor %}
+        <a class="col-md-4" href=/jokeji/page_{{ l_page|add:1 }}/joke_1>下一页</a>
+        {% if l_page != 1 %}
+            <a class="col-md-4" href=/jokeji/page_{{ l_page|add:-1 }}/joke_1>上一页</a>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
+
+{% if joke %}
+    <div class="col-md-8">
+            <h2 class="left">{{ joke.tittle }} </h2>
+            <p class="text-right">{{ joke.update|date:"Y-m-d H:i:s"}} </p>
+            {{ joke.joke|linebreaks}}
+            {% if piece.next %}
+                <p class="col-md-6">下一篇：<a href=/jokeji/page_{{ l_page }}/joke_{{ piece.next.index }}>{{ piece.next.tittle }}</a></p>
+            {% endif %}
+            {% if piece.previous %}
+                <p class="col-md-6">上一篇：<a  href=/jokeji/page_{{ l_page }}/joke_{{ piece.previous.index }}>{{ piece.previous.tittle }}</a></p>
+            {% endif %}
+    </div>
+{% endif %}
+</div>
+{% endblock %}
