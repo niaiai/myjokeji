@@ -43,7 +43,7 @@ class UrlDeal():
         try:
             if 'yuanchuangxiaohua' in PageUrl:
                 TitleNode = soup.find('div', class_="txt").find("h1")
-                ReaData['tittle'] = TitleNode.get_text()
+                ReaData['title'] = TitleNode.get_text()
                 JokeNode = soup.find('div', class_="txt").find("ul").find('li')
                 ReaData['joke'] = JokeNode.get_text() + '\n'
             else:
@@ -59,7 +59,7 @@ class UrlDeal():
                 ReaData['joke'] = joke
                 TitleNode = soup.find('div', class_="left_up").find("h1")
                 Title = TitleNode.get_text()
-                ReaData['tittle'] = Title[Title.find('>', 5) + 2:]
+                ReaData['title'] = Title[Title.find('>', 5) + 2:]
             return ReaData
         except:
             print('error')
@@ -76,7 +76,7 @@ class UrlDeal():
         links = soup.find('div', class_='list_title').find_all(
             'a', href=self.urlRe)
         for link in links:
-            data.append({'urlpath': link['href'], 'tittle': link.get_text()})
+            data.append({'urlpath': link['href'], 'title': link.get_text()})
         return data
 
     def zw_page(self, soup):

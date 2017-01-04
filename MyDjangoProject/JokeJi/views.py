@@ -28,9 +28,9 @@ def show(request, page=1, index=1):
     urlpath = data[index - 1]['urlpath']
     piece = {}
     if index < len(data):
-        piece['next'] = {'index': index + 1, 'tittle': data[index]['tittle']}
+        piece['next'] = {'index': index + 1, 'title': data[index]['title']}
     if index > 1:
-        piece['previous'] = {'index': index - 1, 'tittle': data[index - 2]['tittle']}
+        piece['previous'] = {'index': index - 1, 'title': data[index - 2]['title']}
     sql_joke = jokeji.objects.filter(urlpath=urlpath)
     if sql_joke:
         jokes = sql_joke.values()[0]
