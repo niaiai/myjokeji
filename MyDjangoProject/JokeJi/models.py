@@ -6,7 +6,7 @@ class jokeji(models.Model):
     urlpath = models.CharField(max_length=70)
     click = models.IntegerField(default=1)
     update = models.DateTimeField()
-    tittle = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
     joke = models.TextField()
 
     def __str__(self):
