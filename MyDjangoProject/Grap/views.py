@@ -1,8 +1,8 @@
 from django.views.decorators.cache import cache_page
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
-from JokeJi.models import jokeji
-from JokeJi.api import UrlDeal
+from Grap.models import grap
+from Grap.api import UrlDeal
 
 urldeal = UrlDeal()
 
@@ -32,10 +32,10 @@ def show(request, page=1, index=1):
     if index > 1:
         piece['previous'] = {'index': index - 1,
                              'title': data[index - 2]['title']}
-    sql_joke = jokeji.objects.filter(urlpath=urlpath)
+    sql_joke = grap.objects.filter(urlpath=urlpath)
     if sql_joke:
         jokes = sql_joke.values()[0]
     else:
         jokes = url2data(urlpath)
-        jokeji.objects.create(**jokes)
+        grap.objects.create(**jokes)
     return render_to_response('index.html', {'joke': jokes, 'l_jokes': data, 'piece': piece, 'l_page': page})
