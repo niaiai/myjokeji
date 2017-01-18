@@ -9,7 +9,7 @@ class grap(models.Model):
     update = models.DateTimeField()
 
     def __str__(self):
-        return self.tittle
+        return self.title
 
 
 class img(models.Model):

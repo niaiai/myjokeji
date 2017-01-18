@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title> {% if joke %}{{ joke.title}} - {% endif %} 笑话集-笑话网 </title>
+{% endblock %}
+
+{% block body %}
+<div>
+<h4>
+    <ul class="list-inline">
+       <li><a href="/jokeji/">首 页</a></li>
+       <li><a href="/ycxh/">原创笑话</a></li>
+       <li><a href="/grap/">搞笑图片</a></li>
+    </ul>
+</h4>
+</div>
+
+<div class="row">
+<div class="hidden-xs col-md-4" >
+     <h5><a href="/grap/news">最新图片</a></h5>
+    {% if graps %}
+    <ul class="list-unstyled">
+        {% for data in data_list %}
+        <li><span> &nbsp; &nbsp;=>&nbsp; <a href=/grap/page_{{ l_page }}/grap_{{ forloop.counter }}>{{ data.title }}</a></span></li>
+        {% endfor %}
+        <a class="col-md-4" href=/grap/page_{{ l_page|add:1 }}/grap_1>下一页</a>
+        {% if l_page != 1 %}
+            <a class="col-md-4" href=/grap/page_{{ l_page|add:-1 }}/grap_1>上一页</a>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
+
+{% if graps %}
+    <div class="col-md-8">
+            <h4 class="left">{{ graps.title }} </h4>
+            <p class="text-right">{{ graps.update|date:"Y-m-d H:i:s"}} </p>
+            {% for img in imgs %}
+            <b> {{ img.title }} </b>
+            <br><br>
+            <img src=/media{{ img.path }} border="0" alt={{ img.title }}>
+            <br><br>
+
+            {% endfor %}
+            {% if piece.next %}
+                <p class="col-md-6">下一篇：<a href=/grap/page_{{ l_page }}/grap_{{ piece.next.index }}>{{ piece.next.title }}</a></p>
+            {% endif %}
+            {% if piece.previous %}
+                <p class="col-md-6">上一篇：<a  href=/grap/page_{{ l_page }}/grap_{{ piece.previous.index }}>{{ piece.previous.title }}</a></p>
+            {% endif %}
+    </div>
+{% endif %}
+</div>
+{% endblock %}

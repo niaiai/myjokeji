@@ -10,4 +10,4 @@ class jokeji(models.Model):
     joke = models.TextField()
 
     def __str__(self):
-        return self.tittle
+        return self.title

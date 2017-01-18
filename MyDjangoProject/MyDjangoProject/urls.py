@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.views.generic import RedirectView
 from django.contrib import admin
+from django.conf import settings
+from django import views
 
 urlpatterns = [
     url(r'^jokeji/', include('JokeJi.urls')),
+    url(r'^grap/', include('Grap.urls')),
+    url(r'^media/(?P<path>.*)$', views.static.serve,
+        {'document_root': settings.MEDIAFILES_DIRS[0], }),
     url(r'^', RedirectView.as_view(url='/jokeji/')),
     url(r'^admin/', admin.site.urls),
 ]
