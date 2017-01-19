@@ -13,7 +13,7 @@ def url2data(url_path):
     return data
 
 
-# @cache_page(60 * 30)
+@cache_page(60 * 30)
 def show(request, page=1, index=1):
     page = 1 if not page else page
     index = 1 if not index else index
@@ -36,7 +36,7 @@ def show(request, page=1, index=1):
 
     if index > 1:
         piece['PO'] = {'index': index - 1,
-                             'title': data[index - 2]['title']}
+                       'title': data[index - 2]['title']}
     elif index == 1 and page > 1:
         piece['PP'] = {'index': 1, 'title': '上一页 同样精彩'}
     sql_grap = grap.objects.filter(urlpath=urlpath)

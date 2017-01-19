@@ -31,9 +31,11 @@ class UrlDeal():
         tim = PageUrl.split('/')[-1].split('.')[0]
         try:
             if len(tim) < 14:
-                update = datetime.strptime(tim[:8], "%Y%m%d").replace(tzinfo=self.tz_8)
+                update = datetime.strptime(
+                    tim[:8], "%Y%m%d").replace(tzinfo=self.tz_8)
             else:
-                update = datetime.strptime(tim[:14], "%Y%m%d%H%M%S").replace(tzinfo=self.tz_8)
+                update = datetime.strptime(
+                    tim[:14], "%Y%m%d%H%M%S").replace(tzinfo=self.tz_8)
         except:
             update = datetime.now()
         return update
@@ -55,7 +57,10 @@ class UrlDeal():
                         joke += pNode.get_text() + '\n'
                 else:
                     fontNode = SpanNode.find('font', size='4')
-                    joke = fontNode.get_text()
+                    if fontNode:
+                        joke = fontNode.get_text()
+                    else:
+                        joke = SpanNode.get_text()
                 ReaData['joke'] = joke
                 TitleNode = soup.find('div', class_="left_up").find("h1")
                 Title = TitleNode.get_text()
@@ -78,6 +83,15 @@ class UrlDeal():
         for link in links:
             data.append({'urlpath': link['href'], 'title': link.get_text()})
         return data
+
+    def lastPage(self):
+        html = self.getHtml('list.htm')
+        soup = BeautifulSoup(html, 'html.parser')
+        page = soup.find('div', class_='next_page').find('a', text='尾页')
+        if page:
+            page = re.match('list_(d+).htm', page['href'])
+            return int(page.groups()[0]) if page else 557
+        return 557
 
     def zw_page(self, soup):
         zw_page1 = soup.find('div', class_='zw_page1').find('a')

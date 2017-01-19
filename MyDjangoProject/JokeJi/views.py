@@ -1,4 +1,5 @@
 from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from JokeJi.models import jokeji
@@ -13,6 +14,15 @@ def url2data(url_path):
     return data
 
 
+def getLP():
+    page = cache.get('page')
+    if page:
+        return page
+    else:
+        cache.set('page', urldeal.lastPage(), 60 * 60 * 24)
+        return cache.get('page')
+
+
 @cache_page(60 * 30)
 def show(request, page=1, index=1):
     page = 1 if not page else page
@@ -22,6 +32,8 @@ def show(request, page=1, index=1):
         index = int(index)
     except:
         return HttpResponse('<h2>ERROR</h2>')
+    if page > getLP():
+        page = getLP()
     data = urldeal.index(page)
     if not index or index > len(data):
         index = 1
@@ -29,7 +41,7 @@ def show(request, page=1, index=1):
     piece = {}
     if index < len(data):
         piece['NO'] = {'index': index + 1, 'title': data[index]['title']}
-    elif index == len(data):
+    elif index == len(data) and page < getLP():
         piece['NP'] = {'index': 1, 'title': '下一页 同样精彩'}
 
     if index > 1:

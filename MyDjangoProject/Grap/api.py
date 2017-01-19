@@ -12,7 +12,7 @@ class UrlDeal():
         self.sess = requests.session()
         self.media = settings.MEDIAFILES_DIRS[0]
         self.urlRe = re.compile(r'/GrapHtml/\w+/\d+\.htm')
-        self.imgRe = re.compile(r'/UpFilesnew/\d+/\d+/\d+/\d+\.\w+')
+        self.imgRe = re.compile(r'/UpFiles\w*/\d+/\d+/\d+/\d+\.\w+')
         self.tz_8 = timezone(timedelta(hours=8))
         self.imgHeader = {
             'Accept': 'image/webp,image/*,*/*;q=0.8',
