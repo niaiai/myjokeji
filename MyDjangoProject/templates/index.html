@@ -36,11 +36,15 @@
             <h4 class="left">{{ joke.title }} </h4>
             <p class="text-right">{{ joke.update|date:"Y-m-d H:i:s"}} </p>
             {{ joke.joke|linebreaks}}
-            {% if piece.next %}
-                <p class="col-md-6">下一篇：<a href=/jokeji/page_{{ l_page }}/joke_{{ piece.next.index }}>{{ piece.next.title }}</a></p>
+            {% if piece.NO %}
+                <p class="col-md-6">下一篇：<a href=/jokeji/page_{{ l_page }}/joke_{{ piece.NO.index }}>{{ piece.NO.title }}</a></p>
+            {% elif piece.NP %}
+                <p class="col-md-6">下一页：<a href=/jokeji/page_{{ l_page|add:1 }}/joke_{{ piece.NP.index }}>{{ piece.NP.title }}</a></p>
             {% endif %}
-            {% if piece.previous %}
-                <p class="col-md-6">上一篇：<a  href=/jokeji/page_{{ l_page }}/joke_{{ piece.previous.index }}>{{ piece.previous.title }}</a></p>
+            {% if piece.PO %}
+                <p class="col-md-6">上一篇：<a  href=/jokeji/page_{{ l_page }}/joke_{{ piece.PO.index }}>{{ piece.PO.title }}</a></p>
+            {% elif piece.PP %}
+                <p class="col-md-6">上一页：<a  href=/jokeji/page_{{ l_page|add:-1 }}/joke_{{ piece.PP.index }}>{{ piece.PP.title }}</a></p>
             {% endif %}
     </div>
 {% endif %}

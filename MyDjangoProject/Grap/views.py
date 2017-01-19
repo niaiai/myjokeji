@@ -30,10 +30,15 @@ def show(request, page=1, index=1):
     urlpath = data[index - 1]['urlpath']
     piece = {}
     if index < len(data):
-        piece['next'] = {'index': index + 1, 'title': data[index]['title']}
+        piece['NO'] = {'index': index + 1, 'title': data[index]['title']}
+    elif index == len(data):
+        piece['NP'] = {'index': 1, 'title': '下一页 同样精彩'}
+
     if index > 1:
-        piece['previous'] = {'index': index - 1,
+        piece['PO'] = {'index': index - 1,
                              'title': data[index - 2]['title']}
+    elif index == 1 and page > 1:
+        piece['PP'] = {'index': 1, 'title': '上一页 同样精彩'}
     sql_grap = grap.objects.filter(urlpath=urlpath)
     if sql_grap:
         imgs = sql_grap[0].img_set.all()
